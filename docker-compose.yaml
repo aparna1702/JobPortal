@@ -9,7 +9,7 @@ services:
       - mern
     environment:
       MONGO_URI: mongodb://mongodb:27017/mydatabase  # MongoDB connection URI
-      FRONTEND_URL: http://localhost:5173  # Frontend URL for CORS
+      FRONTEND_URL: http://52.23.196.161:5173/ # Frontend URL for CORS
     depends_on:
       - mongodb  # Ensure MongoDB starts before the backend
 
@@ -20,7 +20,7 @@ services:
     networks:
       - mern
     environment:
-      REACT_APP_API_URL: http://backend:4000  # Backend API URL for the frontend
+      REACT_APP_API_URL: http://52.23.196.161:4000  # Backend API URL for the frontend
 
   mongodb:
     image: mongo:latest  # Use the latest MongoDB image
