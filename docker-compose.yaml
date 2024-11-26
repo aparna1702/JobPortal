@@ -1,0 +1,29 @@
+version: "3.9"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "4000:4000"  # Map backend container port 4000 to host port 4000
+    networks:
+      - mern
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/mydatabase  # MongoDB connection URI
+      FRONTEND_URL: http://localhost:5173  # Frontend URL for CORS
+    depends_on:
+      - mongodb  # Ensure MongoDB starts before the backend
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "5173:5173"  # Map frontend container port 5173 to host port 5173
+    networks:
+      - mern
+    environment:
+      REACT_APP_API_URL: http://backend:4000  # Backend API URL for the frontend
+
+  mongodb:
+    image: mongo:latest  # Use the latest MongoDB image
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # Map
