@@ -26,4 +26,10 @@ services:
     image: mongo:latest  # Use the latest MongoDB image
     container_name: mongodb
     ports:
-      - "27017:27017"  # Map
+      - "27017:27017"  # Map MongoDB container port 27017 to host port 27017
+    networks:
+      - mern
+
+networks:
+  mern:
+    driver: bridge  # Use the default bridge network driver
