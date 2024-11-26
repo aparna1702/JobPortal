@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   backend:
-    image: jobportal-backend  # Use locally built backend image
+    build: ./backend  # Build the backend image from the Dockerfile in ./backend directory
     ports:
       - "4000:4000"  # Expose backend on port 4000
     networks:
@@ -14,7 +14,7 @@ services:
       - mongodb
 
   frontend:
-    image: jobportal-frontend  # Use locally built frontend image
+    build: ./frontend  # Build the frontend image from the Dockerfile in ./frontend directory
     ports:
       - "5173:5173"  # Expose frontend on port 5173
     networks:
@@ -23,7 +23,11 @@ services:
       REACT_APP_API_URL: http://backend:4000
 
   mongodb:
-    image: mongo:latest
+    image: mongo:latest  # Use the latest MongoDB image
     container_name: mongodb
     ports:
       - "27017:27017"
+
+networks:
+  mern:  # Define the 'mern' network explicitly
+    driver: bridge
