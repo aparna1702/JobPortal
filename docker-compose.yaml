@@ -2,34 +2,28 @@ version: "3.9"
 
 services:
   backend:
-    build: ./backend
+    image: jobportal-backend  # Use locally built backend image
     ports:
-      - "4000:4000"  # Map backend container port 4000 to host port 4000
+      - "4000:4000"  # Expose backend on port 4000
     networks:
       - mern
     environment:
-      MONGO_URI: mongodb://mongodb:27017/mydatabase  # MongoDB connection URI
-      FRONTEND_URL: http://52.23.196.161:5173/ # Frontend URL for CORS
+      MONGO_URI: mongodb://mongodb:27017/mydatabase
+      FRONTEND_URL: http://localhost:5173
     depends_on:
-      - mongodb  # Ensure MongoDB starts before the backend
+      - mongodb
 
   frontend:
-    build: ./frontend
+    image: jobportal-frontend  # Use locally built frontend image
     ports:
-      - "5173:5173"  # Map frontend container port 5173 to host port 5173
+      - "5173:5173"  # Expose frontend on port 5173
     networks:
       - mern
     environment:
-      REACT_APP_API_URL: http://52.23.196.161:4000  # Backend API URL for the frontend
+      REACT_APP_API_URL: http://backend:4000
 
   mongodb:
-    image: mongo:latest  # Use the latest MongoDB image
+    image: mongo:latest
     container_name: mongodb
     ports:
-      - "27017:27017"  # Map MongoDB container port 27017 to host port 27017
-    networks:
-      - mern
-
-networks:
-  mern:
-    driver: bridge  # Use the default bridge network driver
+      - "27017:27017"
