@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: aparnarana/job-portal:frontend-1.0  # Using your pre-built frontend image
+    ports:
+      - "5173:5173"  # Exposing the frontend on port 5173
+    networks:
+      - skill-scout-net
+    depends_on:
+      - backend
+
+  backend:
+    image: aparnarana/job-portal:backend-3.0  # Using your pre-built backend image
+    ports:
+      - "4000:4000"  # Exposing the backend on port 4000
+    networks:
+      - skill-scout-net
+
+networks:
+  skill-scout-net:
+    driver: bridge
