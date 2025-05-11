@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobportal-frontend-service
+  labels:
+    app: jobportal-frontend
+spec:
+  selector:
+    app: jobportal-frontend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobportal-backend-service
+  labels:
+    app: jobportal-backend
+spec:
+  selector:
+    app: jobportal-backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
